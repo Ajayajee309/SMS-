@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration | EduManage</title>
+  <meta name="description" content="Fill in your student details for the EduManage portal.">
+  <!-- Bypass localtunnel warning automatically -->
+  <meta http-equiv="bypass-tunnel-reminder" content="true">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0b0f1a;
+      --surface:  #111827;
+      --card:     #1a2235;
+      --border:   #2a3550;
+      --accent:   #6366f1;
+      --accent2:  #8b5cf6;
+      --success:  #10b981;
+      --danger:   #ef4444;
+      --text1:    #f0f4ff;
+      --text2:    #8899bb;
+      --text3:    #5a6a88;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text1);
+      min-height: 100vh;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO HEADER ── */
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+      width: 100%;
+      max-width: 640px;
+    }
+    .logo-ring {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 0 0 6px rgba(99,102,241,0.15), 0 0 30px rgba(99,102,241,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(99,102,241,0.15), 0 0 30px rgba(99,102,241,0.3); }
+      50%       { box-shadow: 0 0 0 12px rgba(99,102,241,0.08), 0 0 50px rgba(99,102,241,0.4); }
+    }
+    .hero h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .hero h1 span { 
+      background: linear-gradient(135deg, #6366f1, #a78bfa); 
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--text2); font-size: 0.9rem; }
+
+    /* ── STEP INDICATOR ── */
+    .steps {
+      display: flex; align-items: center; gap: 0.5rem;
+      max-width: 640px; width: 100%;
+      margin: 1rem 0;
+      padding: 0 0.5rem;
+    }
+    .step-dot {
+      flex: 1; height: 4px; border-radius: 4px;
+      background: var(--border);
+      transition: background 0.4s;
+    }
+    .step-dot.done { background: var(--success); }
+    .step-dot.active { background: var(--accent); }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      max-width: 640px;
+      width: 100%;
+      margin-bottom: 1rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── GRID ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .full { grid-column: 1 / -1; }
+    @media (max-width: 500px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: 1; }
+    }
+
+    /* ── INPUTS ── */
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    label .req { color: var(--danger); margin-left: 2px; }
+
+    input, select, textarea {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text1);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      padding: 0.65rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+    }
+    input::placeholder { color: var(--text3); }
+    select option { background: var(--surface); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(99,102,241,0.5);
+    }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ── SUCCESS ── */
+    .success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .success-icon {
+      width: 90px; height: 90px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 0 8px rgba(16,185,129,0.15), 0 0 40px rgba(16,185,129,0.3);
+      animation: pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-screen h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .success-screen p { color: var(--text2); font-size: 0.9rem; line-height: 1.6; }
+    .student-id-badge {
+      margin-top: 1.5rem;
+      padding: 1rem 2rem;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 12px;
+    }
+    .student-id-badge .label { font-size: 0.75rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.1em; }
+    .student-id-badge .id { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-top: 0.3rem; }
+
+    /* ── FOOTER ── */
+    .footer { color: var(--text3); font-size: 0.75rem; text-align: center; padding: 1rem; }
+
+    /* ── ERROR ── */
+    .error-msg {
+      display: none;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #fca5a5;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-ring">🎓</div>
+    <h1>EduManage <span>Portal</span></h1>
+    <p>Fill in your details below to complete registration</p>
+  </div>
+
+  <!-- STEP BAR -->
+  <div class="steps">
+    <div class="step-dot active" id="step1"></div>
+    <div class="step-dot" id="step2"></div>
+    <div class="step-dot" id="step3"></div>
+  </div>
+
+  <!-- FORM -->
+  <form id="registerForm" onsubmit="submitRegistration(event)">
+
+    <!-- Section 1: Basic Info -->
+    <div class="card">
+      <div class="section-title">🪪 Basic Information</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Register No <span class="req">*</span></label>
+          <input type="text" id="regNo" required placeholder="e.g. 23CSE001" autocomplete="off" oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="name" required placeholder="Your Full Name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" required placeholder="10-digit mobile" maxlength="10" pattern="[0-9]{10}">
+        </div>
+        <div class="form-group">
+          <label>Gender <span class="req">*</span></label>
+          <select id="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dob" required>
+        </div>
+        <div class="form-group">
+          <label>Blood Group</label>
+          <select id="blood">
+            <option value="">Select</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>O+</option><option>O-</option>
+            <option>AB+</option><option>AB-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="student@email.com">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp Number</label>
+          <input type="tel" id="whatsapp" placeholder="If different from phone" maxlength="10">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Academic Info -->
+    <div class="card">
+      <div class="section-title">📚 Academic Information</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Department <span class="req">*</span></label>
+          <select id="dept" required>
+            <option value="">Select Dept</option>
+            <option>Computer Science &amp; Engineering</option>
+            <option>Electronics &amp; Communication Engineering</option>
+            <option>Mechanical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Electrical Engineering</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Year <span class="req">*</span></label>
+          <select id="year" required>
+            <option value="">Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Semester <span class="req">*</span></label>
+          <select id="sem" required>
+            <option value="">Select Sem</option>
+            <option>Sem 1</option><option>Sem 2</option>
+            <option>Sem 3</option><option>Sem 4</option>
+            <option>Sem 5</option><option>Sem 6</option>
+            <option>Sem 7</option><option>Sem 8</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Admission Year</label>
+          <input type="number" id="admYear" placeholder="e.g. 2023" min="2010" max="2030">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Family & Other -->
+    <div class="card">
+      <div class="section-title">👨‍👩‍👦 Family & Other Details</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Father's Name</label>
+          <input type="text" id="father" placeholder="Father's Full Name">
+        </div>
+        <div class="form-group">
+          <label>Mother's Name</label>
+          <input type="text" id="mother" placeholder="Mother's Full Name">
+        </div>
+        <div class="form-group">
+          <label>Community Category</label>
+          <select id="category">
+            <option value="">Select</option>
+            <option>General</option>
+            <option>OBC</option>
+            <option>MBC</option>
+            <option>SC</option>
+            <option>ST</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Aadhar Number</label>
+          <input type="text" id="aadhar" placeholder="12-digit Aadhar" maxlength="12">
+        </div>
+        <div class="form-group full">
+          <label>Full Address</label>
+          <textarea id="address" placeholder="Door No, Street, City, State, Pincode"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-msg" id="errorMsg"></div>
+
+    <!-- SUBMIT -->
+    <div style="max-width:640px; width:100%; margin-bottom:1rem;">
+      <button type="submit" class="btn btn-primary" id="submitBtn">
+        <span>🚀</span> Submit Registration
+      </button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="card success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>Registration Successful!</h2>
+    <p>Your details have been saved.<br>Your teacher will verify and confirm your admission.</p>
+    <div class="student-id-badge">
+      <div class="label">Your Student ID</div>
+      <div class="id" id="generatedId">---</div>
+    </div>
+    <p style="margin-top:1.5rem; color:var(--text2); font-size:0.82rem;">
+      📸 Please share your photo and documents with your teacher to complete the process.
+    </p>
+  </div>
+
+  <div class="footer">
+    🎓 EduManage Student Portal · Powered by your institution
+  </div>
+
+  <script>
+    // Auto set admission year
+    document.getElementById('admYear').value = new Date().getFullYear();
+
+    async function submitRegistration(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const errDiv = document.getElementById('errorMsg');
+      errDiv.style.display = 'none';
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> Submitting...';
+
+      const s = {
+        regNo:    document.getElementById('regNo').value.trim().toUpperCase(),
+        name:     document.getElementById('name').value.trim(),
+        phone:    document.getElementById('phone').value.trim(),
+        gender:   document.getElementById('gender').value,
+        dob:      document.getElementById('dob').value,
+        blood:    document.getElementById('blood').value,
+        email:    document.getElementById('email').value.trim(),
+        whatsapp: document.getElementById('whatsapp').value.trim(),
+        dept:     document.getElementById('dept').value,
+        year:     document.getElementById('year').value,
+        sem:      document.getElementById('sem').value,
+        admYear:  document.getElementById('admYear').value,
+        father:   document.getElementById('father').value.trim(),
+        mother:   document.getElementById('mother').value.trim(),
+        category: document.getElementById('category').value,
+        aadhar:   document.getElementById('aadhar').value.trim(),
+        address:  document.getElementById('address').value.trim(),
+        createdAt: new Date().toISOString(),
+        status: 'Pending'
+      };
+
+      // Validate phone
+      if (s.phone.length !== 10 || isNaN(s.phone)) {
+        showError('⚠️ Please enter a valid 10-digit phone number.');
+        return;
+      }
+
+      try {
+        // Update step indicators
+        document.getElementById('step1').className = 'step-dot done';
+        document.getElementById('step2').className = 'step-dot active';
+
+        const res = await fetch('/api/db');
+        const db = await res.json();
+
+        // Check duplicate
+        if (db.students && db.students.find(x => x.regNo === s.regNo)) {
+          showError('❌ This Register Number is already registered. Contact your teacher if this is a mistake.');
+          return;
+        }
+
+        // Generate ID
+        let counter = parseInt(db.counter || '1000');
+        counter++;
+        s.id = 'STU' + counter;
+
+        // Push student
+        const students = db.students || [];
+        students.push(s);
+
+        // Save students
+        await fetch('/api/db', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'bypass-tunnel-reminder': 'true' },
+          body: JSON.stringify({ key: 'students', value: students })
+        });
+
+        // Save counter
+        await fetch('/api/db', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'bypass-tunnel-reminder': 'true' },
+          body: JSON.stringify({ key: 'counter', value: counter })
+        });
+
+        document.getElementById('step2').className = 'step-dot done';
+        document.getElementById('step3').className = 'step-dot done';
+
+        // Show success
+        document.getElementById('generatedId').textContent = s.id;
+        document.getElementById('registerForm').style.display = 'none';
+        document.querySelector('.hero').style.display = 'none';
+        document.querySelector('.steps').style.display = 'none';
+        const sc = document.getElementById('successScreen');
+        sc.style.display = 'flex';
+
+      } catch (err) {
+        showError('❌ Network error. Please check your connection and try again.');
+        console.error(err);
+      }
+    }
+
+    function showError(msg) {
+      const btn = document.getElementById('submitBtn');
+      const errDiv = document.getElementById('errorMsg');
+      btn.disabled = false;
+      btn.innerHTML = '<span>🚀</span> Submit Registration';
+      errDiv.textContent = msg;
+      errDiv.style.display = 'block';
+      errDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+</body>
+</html>
