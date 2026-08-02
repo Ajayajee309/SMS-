@@ -14,12 +14,12 @@ export default function Attendance() {
   const fetchData = async () => {
     try {
       // Fetch all students (simplified for this demo, usually you'd filter by class/dept)
-      const stRes = await axios.get('http://localhost:5000/api/students', { params: { limit: 100 } });
+      const stRes = await axios.get('https://sms-server-s2nt.onrender.com/api/students', { params: { limit: 100 } });
       const studentList = stRes.data.students || [];
       setStudents(studentList);
 
       // Fetch attendance for the selected date
-      const attRes = await axios.get(`http://localhost:5000/api/attendance/${date}`);
+      const attRes = await axios.get(`https://sms-server-s2nt.onrender.com/api/attendance/${date}`);
       const records = {};
       attRes.data.forEach(r => {
         records[r.studentId] = r.status;
@@ -39,7 +39,7 @@ export default function Attendance() {
       // Save each record
       for (const student of students) {
         const status = attendanceRecords[student.id] || 'Present'; // default to Present if unmarked
-        await axios.post('http://localhost:5000/api/attendance', {
+        await axios.post('https://sms-server-s2nt.onrender.com/api/attendance', {
           studentId: student.id,
           date,
           status

@@ -19,7 +19,7 @@ export default function Marks() {
 
   const fetchMarks = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/marks');
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/marks');
       setMarks(res.data);
     } catch (err) {
       console.error(err);
@@ -29,8 +29,8 @@ export default function Marks() {
   const fetchDropdownData = async () => {
     try {
       const [stRes, crRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/students', { params: { limit: 100 } }),
-        axios.get('http://localhost:5000/api/courses', { params: { limit: 100 } })
+        axios.get('https://sms-server-s2nt.onrender.com/api/students', { params: { limit: 100 } }),
+        axios.get('https://sms-server-s2nt.onrender.com/api/courses', { params: { limit: 100 } })
       ]);
       setStudents(stRes.data.students || []);
       setCourses(crRes.data.courses || []);
@@ -46,7 +46,7 @@ export default function Marks() {
   const saveMark = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/marks', formData);
+      await axios.post('https://sms-server-s2nt.onrender.com/api/marks', formData);
       setIsModalOpen(false);
       fetchMarks();
     } catch (err) {

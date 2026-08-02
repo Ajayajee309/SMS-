@@ -27,7 +27,7 @@ export default function Students() {
 
   const fetchStudents = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/students', {
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/students', {
         params: { search, department: departmentFilter, year: yearFilter, page, limit }
       });
       setStudents(res.data.students);
@@ -77,9 +77,9 @@ export default function Students() {
     e.preventDefault();
     try {
       if (currentStudent) {
-        await axios.put(`http://localhost:5000/api/students/${currentStudent.id}`, formData);
+        await axios.put(`https://sms-server-s2nt.onrender.com/api/students/${currentStudent.id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/students', formData);
+        await axios.post('https://sms-server-s2nt.onrender.com/api/students', formData);
       }
       setIsModalOpen(false);
       fetchStudents();
@@ -92,7 +92,7 @@ export default function Students() {
   const deleteStudent = async (id) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/students/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/students/${id}`);
         fetchStudents();
       } catch (err) {
         console.error(err);
@@ -103,7 +103,7 @@ export default function Students() {
   const exportToExcel = async () => {
     try {
       // Fetch all without limit for export
-      const res = await axios.get('http://localhost:5000/api/students', {
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/students', {
         params: { search, department: departmentFilter, year: yearFilter, limit: 10000 }
       });
       const data = res.data.students.map(s => ({
@@ -119,7 +119,7 @@ export default function Students() {
 
   const exportToPDF = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/students', {
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/students', {
         params: { search, department: departmentFilter, year: yearFilter, limit: 10000 }
       });
       const data = res.data.students;

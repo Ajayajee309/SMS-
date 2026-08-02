@@ -19,8 +19,8 @@ export default function Fees() {
   const fetchData = async () => {
     try {
       const [feeRes, stRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/fees'),
-        axios.get('http://localhost:5000/api/students', { params: { limit: 1000 } })
+        axios.get('https://sms-server-s2nt.onrender.com/api/fees'),
+        axios.get('https://sms-server-s2nt.onrender.com/api/students', { params: { limit: 1000 } })
       ]);
       setFees(feeRes.data);
       setStudents(stRes.data.students || []);
@@ -52,9 +52,9 @@ export default function Fees() {
     e.preventDefault();
     try {
       if (currentFee) {
-        await axios.put(`http://localhost:5000/api/fees/${currentFee.id}`, formData);
+        await axios.put(`https://sms-server-s2nt.onrender.com/api/fees/${currentFee.id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/fees', formData);
+        await axios.post('https://sms-server-s2nt.onrender.com/api/fees', formData);
       }
       setIsModalOpen(false);
       fetchData();
@@ -67,7 +67,7 @@ export default function Fees() {
   const deleteFee = async (id) => {
     if (window.confirm('Are you sure you want to delete this fee record?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/fees/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/fees/${id}`);
         fetchData();
       } catch (err) {
         console.error(err);

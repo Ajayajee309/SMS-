@@ -22,7 +22,7 @@ export default function Timetable() {
 
   const fetchTimetable = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/timetable');
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/timetable');
       setTimetable(res.data);
     } catch (err) {
       console.error(err);
@@ -32,8 +32,8 @@ export default function Timetable() {
   const fetchDropdowns = async () => {
     try {
       const [crs, tch] = await Promise.all([
-        axios.get('http://localhost:5000/api/courses', { params: { limit: 100 } }),
-        axios.get('http://localhost:5000/api/teachers', { params: { limit: 100 } })
+        axios.get('https://sms-server-s2nt.onrender.com/api/courses', { params: { limit: 100 } }),
+        axios.get('https://sms-server-s2nt.onrender.com/api/teachers', { params: { limit: 100 } })
       ]);
       setCourses(crs.data.courses || []);
       setTeachers(tch.data.teachers || []);
@@ -47,7 +47,7 @@ export default function Timetable() {
   const saveEntry = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/timetable', formData);
+      await axios.post('https://sms-server-s2nt.onrender.com/api/timetable', formData);
       setIsModalOpen(false);
       fetchTimetable();
     } catch (err) {
@@ -59,7 +59,7 @@ export default function Timetable() {
   const deleteEntry = async (id) => {
     if (window.confirm('Delete this timetable entry?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/timetable/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/timetable/${id}`);
         fetchTimetable();
       } catch (err) {
         console.error(err);

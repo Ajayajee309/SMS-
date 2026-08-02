@@ -19,7 +19,7 @@ export default function Courses() {
 
   const fetchCourses = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/courses', {
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/courses', {
         params: { search, department: departmentFilter, page, limit }
       });
       setCourses(res.data.courses);
@@ -59,9 +59,9 @@ export default function Courses() {
     e.preventDefault();
     try {
       if (currentCourse) {
-        await axios.put(`http://localhost:5000/api/courses/${currentCourse.id}`, formData);
+        await axios.put(`https://sms-server-s2nt.onrender.com/api/courses/${currentCourse.id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/courses', formData);
+        await axios.post('https://sms-server-s2nt.onrender.com/api/courses', formData);
       }
       setIsModalOpen(false);
       fetchCourses();
@@ -74,7 +74,7 @@ export default function Courses() {
   const deleteCourse = async (id) => {
     if (window.confirm('Are you sure you want to delete this course?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/courses/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/courses/${id}`);
         fetchCourses();
       } catch (err) {
         console.error(err);

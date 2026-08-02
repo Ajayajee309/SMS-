@@ -13,7 +13,7 @@ export default function Notices() {
 
   const fetchNotices = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/notices');
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/notices');
       setNotices(res.data);
     } catch (err) {
       console.error(err);
@@ -27,7 +27,7 @@ export default function Notices() {
   const saveNotice = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/notices', formData);
+      await axios.post('https://sms-server-s2nt.onrender.com/api/notices', formData);
       setIsModalOpen(false);
       fetchNotices();
     } catch (err) {
@@ -39,7 +39,7 @@ export default function Notices() {
   const deleteNotice = async (id) => {
     if (window.confirm('Are you sure you want to delete this notice?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/notices/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/notices/${id}`);
         fetchNotices();
       } catch (err) {
         console.error(err);

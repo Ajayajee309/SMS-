@@ -22,7 +22,7 @@ export default function Teachers() {
 
   const fetchTeachers = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/teachers', {
+      const res = await axios.get('https://sms-server-s2nt.onrender.com/api/teachers', {
         params: { search, department: departmentFilter, page, limit }
       });
       setTeachers(res.data.teachers);
@@ -62,9 +62,9 @@ export default function Teachers() {
     e.preventDefault();
     try {
       if (currentTeacher) {
-        await axios.put(`http://localhost:5000/api/teachers/${currentTeacher.id}`, formData);
+        await axios.put(`https://sms-server-s2nt.onrender.com/api/teachers/${currentTeacher.id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/teachers', formData);
+        await axios.post('https://sms-server-s2nt.onrender.com/api/teachers', formData);
       }
       setIsModalOpen(false);
       fetchTeachers();
@@ -77,7 +77,7 @@ export default function Teachers() {
   const deleteTeacher = async (id) => {
     if (window.confirm('Are you sure you want to delete this teacher?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/teachers/${id}`);
+        await axios.delete(`https://sms-server-s2nt.onrender.com/api/teachers/${id}`);
         fetchTeachers();
       } catch (err) {
         console.error(err);

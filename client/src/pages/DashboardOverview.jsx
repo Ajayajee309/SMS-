@@ -18,7 +18,7 @@ export default function DashboardOverview() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/students');
+        const res = await axios.get('https://sms-server-s2nt.onrender.com/api/students');
         setStats(prev => ({ ...prev, totalStudents: res.data.length }));
       } catch (err) {
         console.error(err);
