@@ -96,7 +96,7 @@ export default function Fees() {
     <div className="space-y-6 relative">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">Fees Management</h2>
-        <button onClick={openAddModal} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm shadow-sm">
+        <button onClick={openAddModal} className="admin-only bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm shadow-sm">
           <Plus className="w-4 h-4" /> Add Fee Record
         </button>
       </div>
@@ -133,10 +133,10 @@ export default function Fees() {
                       <button onClick={() => sendWhatsAppReminder(f)} className="text-gray-500 hover:text-green-600 p-1.5 rounded-md transition-colors" title="Send WhatsApp Reminder">
                         <MessageCircle className="w-4 h-4" />
                       </button>
-                      <button onClick={() => openEditModal(f)} className="text-gray-500 hover:text-blue-600 p-1.5 rounded-md transition-colors">
+                      <button onClick={() => openEditModal(f)} className="admin-only text-gray-500 hover:text-blue-600 p-1.5 rounded-md transition-colors">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button onClick={() => deleteFee(f.id)} className="text-gray-500 hover:text-red-600 p-1.5 rounded-md transition-colors">
+                      <button onClick={() => deleteFee(f.id)} className="admin-only text-gray-500 hover:text-red-600 p-1.5 rounded-md transition-colors">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
@@ -153,7 +153,7 @@ export default function Fees() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-xl">
             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-800">{currentFee ? 'Update Fee' : 'Add Fee Record'}</h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
+              <button onClick={() => setIsModalOpen(false)} className="admin-only text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
             </div>
             
             <form onSubmit={saveFee} className="p-6 space-y-4">
@@ -201,8 +201,8 @@ export default function Fees() {
                 </div>
               )}
               <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Save Fee</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="admin-only px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
+                <button type="submit" className="admin-only px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Save Fee</button>
               </div>
             </form>
           </div>

@@ -15,6 +15,9 @@ export const AuthProvider = ({ children }) => {
     if (token && role && username) {
       setUser({ token, role, username });
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      document.body.setAttribute('data-role', role);
+    } else {
+      document.body.setAttribute('data-role', 'Student');
     }
     setLoading(false);
   }, []);
@@ -30,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       
       setUser({ token, role, username: u });
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      document.body.setAttribute('data-role', role);
       return true;
     } catch (error) {
       console.error('Login failed', error);
@@ -45,8 +49,27 @@ export const AuthProvider = ({ children }) => {
     delete axios.defaults.headers.common['Authorization'];
   };
 
+  const googleLogin = async (credential) => {
+    try {
+      const res = await axios.post('https://sms-server-s2nt.onrender.com/api/auth/google-login', { credential });
+      const { token, role, username: u } = res.data;
+      
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+      localStorage.setItem('username', u);
+      
+      setUser({ token, role, username: u });
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      document.body.setAttribute('data-role', role);
+      return true;
+    } catch (error) {
+      console.error('Google Login failed', error);
+      return false;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, googleLogin, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );

@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const timetableController = require('../controllers/timetableController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect, authorize } = require('../middleware/authMiddleware');
 
 router.use(protect);
 
 router.route('/')
   .get(timetableController.getTimetable)
-  .post(timetableController.createTimetable);
+  .post(authorize('Admin'), timetableController.createTimetable);
 
 router.route('/:id')
-  .delete(timetableController.deleteTimetable);
+  .delete(authorize('Admin'), timetableController.deleteTimetable);
 
 module.exports = router;

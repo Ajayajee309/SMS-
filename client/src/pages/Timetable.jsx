@@ -97,7 +97,7 @@ export default function Timetable() {
                 <div className="border border-gray-200 rounded-b-lg p-2 space-y-2">
                   {dayEntries.map(entry => (
                     <div key={entry.id} className="bg-blue-50 border border-blue-100 rounded-lg p-3 relative group">
-                      <button onClick={() => deleteEntry(entry.id)} className="absolute top-2 right-2 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-600">
+                      <button onClick={() => deleteEntry(entry.id)} className="admin-only absolute top-2 right-2 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-600">
                         <Trash2 className="w-4 h-4" />
                       </button>
                       <p className="text-sm font-bold text-blue-900">{formatTime(entry.startTime)} - {formatTime(entry.endTime)}</p>
@@ -124,7 +124,7 @@ export default function Timetable() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-xl">
             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-800">Add Timetable Entry</h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
+              <button onClick={() => setIsModalOpen(false)} className="admin-only text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
             </div>
             
             <form onSubmit={saveEntry} className="p-6 space-y-4">
@@ -184,8 +184,8 @@ export default function Timetable() {
                   <input required name="roomNumber" value={formData.roomNumber} onChange={handleInputChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" />
               </div>
               <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Save Entry</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="admin-only px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
+                <button type="submit" className="admin-only px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Save Entry</button>
               </div>
             </form>
           </div>

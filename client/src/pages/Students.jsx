@@ -146,7 +146,7 @@ export default function Students() {
           <button onClick={exportToPDF} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm">
             <Download className="w-4 h-4" /> PDF
           </button>
-          <button onClick={openAddModal} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm shadow-sm">
+          <button onClick={openAddModal} className="admin-only bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors text-sm shadow-sm">
             <Plus className="w-4 h-4" /> Add Student
           </button>
         </div>
@@ -234,10 +234,10 @@ export default function Students() {
                       <button onClick={() => openViewModal(s)} className="text-gray-500 hover:text-blue-600 p-1.5 rounded-md hover:bg-blue-50 transition-colors" title="View Profile">
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button onClick={() => openEditModal(s)} className="text-gray-500 hover:text-emerald-600 p-1.5 rounded-md hover:bg-emerald-50 transition-colors" title="Edit Student">
+                      <button onClick={() => openEditModal(s)} className="admin-only text-gray-500 hover:text-emerald-600 p-1.5 rounded-md hover:bg-emerald-50 transition-colors" title="Edit Student">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button onClick={() => deleteStudent(s.id)} className="text-gray-500 hover:text-red-600 p-1.5 rounded-md hover:bg-red-50 transition-colors" title="Delete Student">
+                      <button onClick={() => deleteStudent(s.id)} className="admin-only text-gray-500 hover:text-red-600 p-1.5 rounded-md hover:bg-red-50 transition-colors" title="Delete Student">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
@@ -280,7 +280,7 @@ export default function Students() {
               <h3 className="text-xl font-bold text-gray-800">
                 {currentStudent ? 'Edit Student' : 'Add New Student'}
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setIsModalOpen(false)} className="admin-only text-gray-400 hover:text-gray-600">
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -350,10 +350,10 @@ export default function Students() {
                 </div>
               </div>
               <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="admin-only px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors">
                   Cancel
                 </button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-colors">
+                <button type="submit" className="admin-only px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-colors">
                   {currentStudent ? 'Save Changes' : 'Add Student'}
                 </button>
               </div>
@@ -417,7 +417,7 @@ export default function Students() {
                   setIsViewModalOpen(false);
                   openEditModal(currentStudent);
                 }} 
-                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors flex items-center gap-2"
+                className="admin-only px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors flex items-center gap-2"
               >
                 <Edit2 className="w-4 h-4" /> Edit Profile
               </button>

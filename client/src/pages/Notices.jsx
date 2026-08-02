@@ -80,7 +80,7 @@ export default function Notices() {
                   <button onClick={() => shareNoticeWhatsApp(n)} className="text-gray-400 hover:text-green-600 transition-colors" title="Share via WhatsApp">
                     <MessageCircle className="w-4 h-4" />
                   </button>
-                  <button onClick={() => deleteNotice(n.id)} className="text-gray-400 hover:text-red-600 transition-colors">
+                  <button onClick={() => deleteNotice(n.id)} className="admin-only text-gray-400 hover:text-red-600 transition-colors">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
@@ -100,7 +100,7 @@ export default function Notices() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-800">Create New Notice</h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
+              <button onClick={() => setIsModalOpen(false)} className="admin-only text-gray-400 hover:text-gray-600"><X className="w-6 h-6" /></button>
             </div>
             
             <form onSubmit={saveNotice} className="p-6 space-y-4">
@@ -121,8 +121,8 @@ export default function Notices() {
                 <textarea required name="content" rows="4" value={formData.content} onChange={handleInputChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500"></textarea>
               </div>
               <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Post Notice</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="admin-only px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
+                <button type="submit" className="admin-only px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm">Post Notice</button>
               </div>
             </form>
           </div>
